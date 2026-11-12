@@ -1,6 +1,6 @@
 # GAN with Hybrid CNN
 
-A Jupyter Notebook project exploring image generation with a Generative Adversarial Network (GAN) and convolutional neural network (CNN) components. The notebook defines a generator and discriminator, training losses and optimizers, a training step, and an image-generation workflow.
+A Jupyter Notebook project exploring image generation with a Generative Adversarial Network (GAN) and convolutional neural network (CNN) components. The notebook defines a generator and discriminator, trains them adversarially, and optionally previews the model's output in a subtle animated display.
 
 ## Project contents
 
@@ -25,7 +25,7 @@ python -m pip install tensorflow numpy matplotlib notebook
 
 1. Clone the repository and open the notebook in Jupyter or upload it to Google Colab.
 2. Prepare an image dataset as a NumPy array named `x_train`, with shape `(number_of_images, height, width, channels)` (or `(number_of_images, height, width)` for grayscale images).
-3. Normalize image values to the range `[-1, 1]`, and make sure the dataset dimensions match the generator output shape. The current generator is configured for 64 × 64 grayscale images; update the model configuration if your data differs.
+3. Normalize image values to the range `[-1, 1]`, and make sure the dataset dimensions match the generator output shape. The current generator is configured for 64 × 64 grayscale images; update the model architecture or preprocessing as needed for your dataset.
 4. Run the notebook cells in order to define the models, prepare the dataset, and train the GAN.
 
 > **Dataset note:** The notebook expects `x_train` to be available before the dataset-preparation cell. Add your own dataset-loading and preprocessing steps; no dataset is included in this repository.
@@ -47,15 +47,15 @@ animation = animate_generator(
 HTML(animation.to_jshtml())
 ```
 
-The visualization periodically samples fresh latent vectors and displays the generated images in a compact grid. A subtle, low-contrast particle field adds motion to the background without obscuring the samples. Keep the `animation` variable alive so the notebook can render the animation.
+The visualization periodically samples fresh latent vectors and displays the generated images in a compact grid. A subtle, low-contrast particle field drifts behind the samples, creating a gentle live-motion effect that keeps the preview dynamic without distracting from the generated outputs. Adjust `interval` to change the refresh speed and `samples` to change the grid size.
 
 ## Configuration
 
-The notebook currently sets `LATENT_DIM = 100`, `EPOCHS = 50`, and `BATCH_SIZE = 256`. Adjust these values based on your dataset and available compute. Training time and results depend on the input data, hardware, and model configuration.
+The notebook currently sets `LATENT_DIM = 100`, `EPOCHS = 50`, and `BATCH_SIZE = 256`. Adjust these values based on your dataset and available compute. Training time and results depend on the input data, hardware, and tuning choices.
 
 ## Limitations
 
-This repository is an experimental notebook rather than a packaged application. The notebook's training workflow assumes that image data has been loaded and correctly preprocessed beforehand. Validate image dimensions and normalization before training, and use an available GPU where practical.
+This repository is an experimental notebook rather than a packaged application. The notebook's training workflow assumes that image data has been loaded and correctly preprocessed beforehand. Validate the dataset shape, range, and generator output dimensions before training.
 
 ## License
 
